@@ -130,6 +130,8 @@ pub struct TextAreaProps {
     pub oninput: Callback<InputData>,
     #[prop_or_default]
     pub name: String,
+    #[prop_or_default]
+    pub fullwidth: bool,
 }
 
 impl Component for MatTextArea {
@@ -180,6 +182,7 @@ impl Component for MatTextArea {
                 validateOnInitialRender?=to_option(self.props.validate_on_initial_render)
                 name?=to_option_string(&self.props.name)
                 ref=self.node_ref.clone()
+                style=if self.props.fullwidth { "width: 100%" } else { "" }  
             ></mwc-textarea>
         }
     }
