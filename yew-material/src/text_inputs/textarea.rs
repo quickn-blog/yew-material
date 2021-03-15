@@ -132,6 +132,8 @@ pub struct TextAreaProps {
     pub name: String,
     #[prop_or_default]
     pub fullwidth: bool,
+    #[prop_or_default]
+    pub fullheight: bool,
 }
 
 impl Component for MatTextArea {
@@ -158,6 +160,9 @@ impl Component for MatTextArea {
     }
 
     fn view(&self) -> Html {
+        let mut style = String::new();
+        if self.props.fullwidth { style.push_str("width: 100%;"); }
+        if self.props.fullheight { style.push_str("height: 100%;"); }
         html! {
             <mwc-textarea
                 rows?=self.props.rows
@@ -182,7 +187,7 @@ impl Component for MatTextArea {
                 validateOnInitialRender?=to_option(self.props.validate_on_initial_render)
                 name?=to_option_string(&self.props.name)
                 ref=self.node_ref.clone()
-                style=if self.props.fullwidth { "width: 100%" } else { "" }  
+                style=&style
             ></mwc-textarea>
         }
     }
